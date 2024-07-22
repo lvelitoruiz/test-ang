@@ -1,0 +1,35 @@
+<h2 mat-dialog-title>{{ data.task ? 'Editar Tarea' : 'Nueva Tarea' }}</h2>
+<mat-dialog-content>
+  <form [formGroup]="taskForm" class="flex flex-col">
+    <mat-form-field appearance="fill">
+      <mat-label>Título</mat-label>
+      <input matInput formControlName="title" required maxlength="100">
+      <mat-hint align="end">{{taskForm.get('title')?.value?.length || 0}} / 100</mat-hint>
+    </mat-form-field>
+    <mat-form-field appearance="fill">
+      <mat-label>Descripción</mat-label>
+      <textarea matInput formControlName="description"></textarea>
+    </mat-form-field>
+    <mat-form-field appearance="fill">
+      <mat-label>Categoría</mat-label>
+      <mat-select formControlName="category" required>
+        <mat-option *ngFor="let category of categories" [value]="category">
+          {{category}}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+    <mat-form-field appearance="fill">
+      <mat-label>Prioridad</mat-label>
+      <mat-select formControlName="priority" required>
+        <mat-option *ngFor="let priority of priorities" [value]="priority">
+          {{priority}}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+    <input type="file" (change)="onFileSelected($event)">
+  </form>
+</mat-dialog-content>
+<mat-dialog-actions>
+  <button mat-button (click)="onCancel()">Cancelar</button>
+  <button mat-raised-button color="primary" (click)="onSave()" [disabled]="taskForm.invalid || isSubmitting">Guardar</button>
+</mat-dialog-actions>

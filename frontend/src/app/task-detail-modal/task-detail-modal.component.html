@@ -1,0 +1,50 @@
+<mat-list-item
+  class="border-b cursor-pointer col-span-4 bg-white block p-0 h-[305px] overflow-hidden rounded-[21px]"
+>
+  <div class="overflow-hidden w-full h-36">
+    <img
+      *ngIf="data.task.imageUrl"
+      [src]="data.task.imageUrl"
+      alt="Task Image"
+      class="w-full h-full object-cover"
+    />
+    <img
+      *ngIf="!data.task.imageUrl"
+      src="https://res.cloudinary.com/dalvenjha/image/upload/v1721383219/oibe7ytivwpyu5jsp5nw.webp"
+      alt="Task Image"
+      class="w-full h-full object-cover"
+    />
+  </div>
+  <div class="items-center w-full p-4">
+    <div class="h-24 w-full">
+      <h3 class="text-base font-semibold uppercase m-0 mb-2">
+        {{ data.task.title }}
+      </h3>
+      <p class="text-gray-600 text-sm w-full overflow-hidden whitespace-normal">
+        {{ data.task.description | slice : 0 : 50
+        }}{{ data.task.description.length > 50 ? "..." : "" }}
+      </p>
+    </div>
+    <div class="flex justify-between items-center">
+      <div class="flex">
+        <button
+          mat-icon-button
+          class="bg-gray-800 scale-75 text-gray-200 transition-all duration-300 hover:bg-blue-500 hover:text-gray-50"
+        >
+          <mat-icon class="scale-75 p-0">{{
+            data.task.completed ? "check_box" : "check_box_outline_blank"
+          }}</mat-icon>
+        </button>
+      </div>
+      <div>
+        <span
+          [ngClass]="[
+            'px-5 py-1 text-gray-100 rounded-tl-full rounded-bl-full mr-[-16px] text-sm',
+            getCategoryColorClass(data.task.category)
+          ]"
+          >{{ data.task.category }}</span
+        >
+      </div>
+    </div>
+  </div>
+</mat-list-item>

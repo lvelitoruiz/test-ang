@@ -1,0 +1,25 @@
+.mat-mdc-form-field {
+    .mat-mdc-text-field-wrapper {
+      background-color: transparent !important;
+      font-size: 12px !important;
+    }
+  
+    .mat-mdc-form-field-flex {
+      background-color: transparent !important;
+    }
+  
+    .mdc-text-field--outlined .mdc-notched-outline__leading,
+    .mdc-text-field--outlined .mdc-notched-outline__notch,
+    .mdc-text-field--outlined .mdc-notched-outline__trailing {
+      border-color: transparent !important;
+    }
+  
+    // .mat-mdc-form-field-subscript-wrapper {
+    //   padding: 0;
+    // }
+  }
+
+  ::ng-deep .mat-form-field-underline {
+    display: none !important;
+  }
+  
