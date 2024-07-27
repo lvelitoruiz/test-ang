@@ -14,7 +14,7 @@ export interface TaskState extends EntityState<Task> {
 }
 
 export const adapter: EntityAdapter<Task> = createEntityAdapter<Task>({
-  selectId: (task: Task) => task.taskId
+  selectId: (task: Task) => task.id
 });
 
 export const initialState: TaskState = adapter.getInitialState({
@@ -54,7 +54,7 @@ export const taskReducer = createReducer(
   }),
   on(TaskActions.updateTaskSuccess, (state, { task }) => {
     return adapter.updateOne(
-      { id: task.taskId, changes: task },
+      { id: task.id, changes: task },
       { ...state, loading: false, error: null }
     );
   }),

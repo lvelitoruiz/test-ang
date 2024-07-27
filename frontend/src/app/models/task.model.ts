@@ -1,7 +1,7 @@
 // src/app/models/task.model.ts
 
 export interface Task {
-  taskId: number;
+  id: number;
   title: string;
   description: string;
   completed: boolean;

@@ -58,7 +58,8 @@ export class TaskEditModalComponent implements OnInit {
       this.isSubmitting = true;
       const task: Task = {
         ...this.data.task,
-        ...this.taskForm.value
+        ...this.taskForm.value,
+        id: this.data.task ? this.data.task.id : undefined
       };
       this.dialogRef.close(task);
     }

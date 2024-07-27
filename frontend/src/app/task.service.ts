@@ -26,15 +26,15 @@ export class TaskService {
   }
 
   updateTask(task: Task): Observable<Task> {
-    return this.http.put<Task>(`${this.apiUrl}/${task.taskId}`, task);
+    return this.http.put<Task>(`${this.apiUrl}/${task.id}`, task);
   }
 
-  deleteTask(taskId: number): Observable<any> {
-    return this.http.delete(`${this.apiUrl}/${taskId}`);
+  deleteTask(id: number): Observable<any> {
+    return this.http.delete(`${this.apiUrl}/${id}`);
   }
 
-  toggleTaskComplete(taskId: number): Observable<Task> {
-    return this.http.patch<Task>(`${this.apiUrl}/${taskId}/toggle-complete`, {});
+  toggleTaskComplete(id: number): Observable<Task> {
+    return this.http.patch<Task>(`${this.apiUrl}/${id}/toggle-complete`, {});
   }
 
   getCategories(): Observable<string[]> {

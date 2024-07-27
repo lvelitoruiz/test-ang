@@ -1,5 +1,5 @@
-const mongoose = require("mongoose");
-const Counter = require("./Counter");
+const { DataTypes } = require('sequelize');
+const sequelize = require('../db/database');
 
 const PRIORITIES = ["normal", "importante", "urgente"];
 const CATEGORIES = [
@@ -11,43 +11,39 @@ const CATEGORIES = [
   "viajes",
 ];
 
-const TaskSchema = new mongoose.Schema({
-  taskId: { type: Number, unique: true },
-  title: { type: String, required: true, maxlength: 100 },
-  description: { type: String, maxlength: 500 },
-  completed: { type: Boolean, default: false },
+const Task = sequelize.define('Task', {
+  title: {
+    type: DataTypes.STRING,
+    allowNull: false,
+    validate: {
+      len: [1, 100]
+    }
+  },
+  description: {
+    type: DataTypes.STRING,
+    validate: {
+      len: [0, 500]
+    }
+  },
+  completed: {
+    type: DataTypes.BOOLEAN,
+    defaultValue: false
+  },
   priority: {
-    type: String,
-    enum: PRIORITIES,
-    default: "normal",
+    type: DataTypes.ENUM(...PRIORITIES),
+    defaultValue: 'normal'
   },
   category: {
-    type: String,
-    enum: CATEGORIES,
-    required: true,
+    type: DataTypes.ENUM(...CATEGORIES),
+    allowNull: false
   },
-  imageUrl: { type: String }, // Nuevo campo para la URL de la imagen
-  createdAt: { type: Date, default: Date.now },
-});
-
-TaskSchema.pre("save", function (next) {
-  if (this.isNew) {
-    Counter.findByIdAndUpdate(
-      { _id: "taskId" },
-      { $inc: { seq: 1 } },
-      { new: true, upsert: true }
-    )
-      .then((counter) => {
-        this.taskId = counter.seq;
-        next();
-      })
-      .catch((error) => next(error));
-  } else {
-    next();
+  imageUrl: {
+    type: DataTypes.STRING
   }
+}, {
+  timestamps: true
 });
 
+module.exports = Task;
 module.exports.CATEGORIES = CATEGORIES;
 module.exports.PRIORITIES = PRIORITIES;
-
-module.exports = mongoose.model("Task", TaskSchema);

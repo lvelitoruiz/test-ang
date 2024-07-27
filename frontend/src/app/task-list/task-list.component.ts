@@ -108,8 +108,8 @@ export class TaskListComponent implements OnInit {
     this.store.dispatch(TaskActions.updateTask({ task }));
   }
 
-  deleteTask(taskId: number) {
-    this.store.dispatch(TaskActions.deleteTask({ id: taskId }));
+  deleteTask(id: number) {
+    this.store.dispatch(TaskActions.deleteTask({ id: id }));
   }
 
   getUpdatedTask(task: Task): Task {
