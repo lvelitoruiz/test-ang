@@ -1,4 +1,4 @@
-<h2 mat-dialog-title>{{ data.task ? 'Editar Tarea' : 'Nueva Tarea' }}</h2>
+<h2 class="bg-gray-700 text-gray-100 text-base uppercase p-5">{{ data.task ? 'Editar Tarea' : 'Nueva Tarea' }}</h2>
 <mat-dialog-content>
   <form [formGroup]="taskForm" class="flex flex-col">
     <mat-form-field appearance="fill">
@@ -26,10 +26,21 @@
         </mat-option>
       </mat-select>
     </mat-form-field>
-    <input type="file" (change)="onFileSelected($event)">
+    
+    <!-- Botón personalizado para cargar archivo -->
+    <button mat-raised-button class="bg-blue-500 w-[200px] font-extralight text-gray-200 transition-all duration-300 hover:bg-blue-800 hover:text-gray-50" type="button" (click)="fileInput.click()">
+      <mat-icon>cloud_upload</mat-icon>
+      Cargar imagen
+    </button>
+    
+    <!-- Input file oculto -->
+    <input type="file" #fileInput style="display: none" (change)="onFileSelected($event)">
+    
+    <!-- Mostrar el nombre del archivo seleccionado (opcional) -->
+    <p *ngIf="selectedFileName">Archivo seleccionado: {{ selectedFileName }}</p>
   </form>
 </mat-dialog-content>
 <mat-dialog-actions>
   <button mat-button (click)="onCancel()">Cancelar</button>
-  <button mat-raised-button color="primary" (click)="onSave()" [disabled]="taskForm.invalid || isSubmitting">Guardar</button>
+  <button mat-raised-button class="bg-gray-800 text-gray-200 transition-all duration-300 hover:bg-red-500 hover:text-gray-50" (click)="onSave()" [disabled]="taskForm.invalid || isSubmitting">Guardar</button>
 </mat-dialog-actions>

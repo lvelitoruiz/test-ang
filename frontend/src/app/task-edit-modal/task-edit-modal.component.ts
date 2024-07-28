@@ -27,6 +27,7 @@ export class TaskEditModalComponent implements OnInit {
   categories = ['hogar', 'trabajo', 'hobby', 'compras', 'salidas', 'viajes'];
   priorities = ['normal', 'importante', 'urgente'];
   isSubmitting = false;
+  selectedFileName: string | null = null;
 
   constructor(
     private fb: FormBuilder,
@@ -68,6 +69,7 @@ export class TaskEditModalComponent implements OnInit {
   onFileSelected(event: any): void {
     const file: File = event.target.files[0];
     if (file) {
+      this.selectedFileName = file.name;
       const formData = new FormData();
       formData.append('file', file);
       formData.append('upload_preset', 'angular-tool');
